@@ -1,0 +1,34 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Ver Info</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content  color="medium" >
+  <ion-card>
+  
+    <form [formGroup]="infoNota" (ngSubmit)="actualizar()">
+      <ion-card-header>
+        <ion-button id="btnCancelar" routerLink="/home" size="small" fill="clear" color="danger"  >
+          <ion-icon  name="close-outline"></ion-icon>
+        </ion-button>
+          <ion-label>Titulo:</ion-label>
+          <ion-input formControlName="titulo"  type="text" placeholder="Nombre de la nota(opcional)"></ion-input>
+  
+      </ion-card-header>
+      <ion-card-content>
+        <ion-item color="light">
+        <ion-label position="floating">Descripcion</ion-label>
+          <ion-textarea formControlName="descripcion" inputmode="text" rows="15" ></ion-textarea>
+        </ion-item>
+      </ion-card-content>
+     
+      <ion-button type="submit"  expand="block" fill="solid" color="secondary" shape="round">
+        Guardar
+      </ion-button>
+    </form>
+    <ion-button (click)="eliminar()"  expand="block" fill="solid" color="danger" shape="round">
+      Eliminar
+    </ion-button>
+  </ion-card>
+</ion-content>

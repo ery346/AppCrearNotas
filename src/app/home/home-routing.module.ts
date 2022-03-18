@@ -6,7 +6,23 @@ const routes: Routes = [
   {
     path: '',
     component: HomePage,
-  }
+  },
+  {
+    path: 'mostrar-notas',
+    loadChildren: () => import('./mostrar-notas/mostrar-notas.module').then( m => m.MostrarNotasPageModule)
+  },
+  {
+    path: 'nueva-nota',
+    loadChildren: () => import('./nueva-nota/nueva-nota.module').then( m => m.NuevaNotaPageModule)
+  },
+  {
+    path: 'ver-info',
+    loadChildren: () => import('./ver-info/ver-info.module').then( m => m.VerInfoPageModule)
+  },
+  {
+    path: '**',
+    redirectTo: ''
+  },
 ];
 
 @NgModule({

@@ -1,0 +1,25 @@
+<ion-grid>
+  <ion-row>
+    <ion-col size="6" *ngFor="let i of tarjetas">
+      <ion-card color="light" >
+          <ion-list-header  lines="full">
+            <ion-label>
+              <h1>{{i.titulo | uppercase}}</h1>
+            </ion-label>
+          </ion-list-header>
+  
+          
+        <ion-card-content>
+          <ion-label ><p>{{i.descripcion | slice:0:15}}...</p></ion-label>
+        </ion-card-content>
+        
+        <ion-item lines="full" >
+          <div>{{i.fecha | date}}</div>
+        </ion-item >
+        <ion-button (click)="verInfo(i.id)" expand="block" fill="clear" shape="round" size="small" >
+          Ver
+        </ion-button>
+      </ion-card>
+    </ion-col>
+  </ion-row>
+</ion-grid>
