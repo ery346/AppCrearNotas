@@ -1,17 +1,27 @@
 
 <ion-content >
-
-  <ion-toolbar color="light">
-    <ion-title  class="ion-text-center ion-padding-bottom "><h2>Notas UwU</h2></ion-title>
+  <ion-toolbar  color="light">
+    <ion-title  class="ion-text-center ion-padding-bottom  "><h3>Notas UwU</h3></ion-title>
   </ion-toolbar>
- 
- 
-  
- <div id="btnMas" >
-  <ion-icon color="success"  name="add-circle-outline" routerLink="nueva-nota"></ion-icon>
- </div>
+  <ion-fab vertical="bottom" horizontal="center" slot="fixed">
+    <ion-fab-button color="success" routerLink="nueva-nota">
+      <ion-icon id="btnmas" name="add-circle-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 
-  <app-mostrar-notas ></app-mostrar-notas>
+  <ion-fab id="configbtn" vertical="top" horizontal="end" slot="fixed">
+    <ion-fab-button color="medium">
+      <ion-icon name="settings-outline"></ion-icon>
+    </ion-fab-button>
+    <ion-fab-list id="configbtn" side="start">
+      <ion-fab-button (click)=" verIconos()"><ion-icon name="grid-outline"></ion-icon></ion-fab-button>
+    </ion-fab-list>
+    <ion-fab-list id="configbtn" side="bottom">
+      <ion-fab-button (click)="cambiarTema() "><ion-icon name="color-palette-outline"></ion-icon></ion-fab-button>
+    </ion-fab-list>
+  </ion-fab>
+
+ 
+  <app-mostrar-notas [vista]="enviarCambioVer" [refrescaLocal]="verT"></app-mostrar-notas>
   
 </ion-content>
-<!-- <ion-router-outlet></ion-router-outlet> -->

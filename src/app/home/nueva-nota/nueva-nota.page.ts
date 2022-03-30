@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { AlmacenService } from '../service/almacen.service';
+import { FirestoreService } from '../service/firestore.service';
 
 
 @Component({
@@ -18,7 +19,8 @@ export class NuevaNotaPage implements OnInit {
   constructor(private fb: FormBuilder, 
               public alertController: AlertController,
               private servicio: AlmacenService, 
-              private router: Router) { }
+              private router: Router,
+              private fireS: FirestoreService) { }
 
   ngOnInit() {
     
@@ -30,10 +32,8 @@ export class NuevaNotaPage implements OnInit {
     if (this.infoNota.valid) {
       this.servicio.almacenar(this.infoNota.value);
       this.router.navigate(['home']);
+      this.fireS.postNota(this.infoNota.value);
       this.infoNota.reset();
-      setTimeout(() => {
-        window.location.reload() 
-      }, 50);
     }else{
       this.presentAlert()
     }

@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { AlmacenService } from '../service/almacen.service';
+import { FirestoreService } from '../service/firestore.service';
 
 @Component({
   selector: 'app-ver-info',
@@ -10,6 +11,7 @@ import { AlmacenService } from '../service/almacen.service';
   styleUrls: ['./ver-info.page.scss'],
 })
 export class VerInfoPage implements OnInit {
+  objFirestore: any;
   get info () {
     return this.servicio.mandarObj();
   }
@@ -20,8 +22,15 @@ export class VerInfoPage implements OnInit {
   constructor(private fb: FormBuilder, 
               public alertController: AlertController,
               private servicio: AlmacenService, 
-              private router: Router) { }
+              private router: Router,
+              private fireS: FirestoreService) { }
   ngOnInit() {
+    
+    this.fireS.getNotas().subscribe((res:any) => {
+     const obj = res.find((datos: any) => datos.descripcion === this.info.descripcion);
+     this.objFirestore = obj;
+    })
+
     if ( this.info === undefined ) {
       
     } else {
@@ -39,17 +48,20 @@ export class VerInfoPage implements OnInit {
     if (this.infoNota.value.descripcion === '') {
       this.presentAlert();
     }else{
-      console.log(this.infoNota.valid)
       this.servicio.actualizarDatos(this.infoNota.value);
+      this.objFirestore.titulo = this.infoNota.value.titulo;
+      this.objFirestore.descripcion= this.infoNota.value.descripcion;
+      console.log(this.objFirestore)
+      this.fireS.uptdateNotas(this.objFirestore)
+      
       this.router.navigate(['home']);
+      // this.servicio.actualizarFirebase(this.infoNota.value);
       this.infoNota.reset();
-      setTimeout(() => {
-        window.location.reload() 
-      }, 50);
     }
   }
   eliminar(){
     this.presentAlertConfirm();
+    // this.servicio.eliminarFirebase()
   }
   async presentAlert() {
     const alert = await this.alertController.create({
@@ -79,11 +91,9 @@ export class VerInfoPage implements OnInit {
           text: 'Okay',
           id: 'confirm-button',
           handler: () => {
+            this.fireS.deleteNota(this.objFirestore.id)
             this.servicio.eliminarDatos(this.info.id);
             this.router.navigateByUrl('home');
-            setTimeout(() => {
-              window.location.reload() 
-            }, 30);
 
           }
         }
