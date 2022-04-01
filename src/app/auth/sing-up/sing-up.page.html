@@ -1,0 +1,24 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Registrarme</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="miFormulario" (ngSubmit)="enviar()">
+    <ion-item>
+      <ion-label position="floating">E-Mail <ion-text color="danger">*</ion-text></ion-label>
+      <ion-input required formControlName="email" type="text"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Password <ion-text color="danger">*</ion-text></ion-label>
+      <ion-input required formControlName="password" type="text"></ion-input>
+    </ion-item>
+    <ion-button block color="primary" type="submit" >
+      Registrar
+    </ion-button>
+  </form>
+  <ion-button routerLink="/auth/login" expand="block" fill="clear" shape="round">
+    Ir a login
+  </ion-button>
+</ion-content>

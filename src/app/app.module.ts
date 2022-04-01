@@ -8,14 +8,12 @@ import { environment } from "../environments/environment";
 import { provideFirebaseApp, initializeApp } from "@angular/fire/app";
 import { getFirestore, provideFirestore } from "@angular/fire/firestore";
 //auth//
-
+import { provideAuth, getAuth } from '@angular/fire/auth';
 ///////////////
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HomePageModule } from './home/home.module';
 import { ReactiveFormsModule } from '@angular/forms';
-
-
 
 
 @NgModule({
@@ -24,7 +22,7 @@ import { ReactiveFormsModule } from '@angular/forms';
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule,HomePageModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideFirestore(() => getFirestore()),
-   
+    provideAuth(() => getAuth()),
 
   ],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }], 

@@ -2,7 +2,11 @@
 <ion-content >
   <ion-toolbar  color="light">
     <ion-title  class="ion-text-center ion-padding-bottom  "><h3>Notas UwU</h3></ion-title>
+    
   </ion-toolbar>
+  <ion-button (click)="logout()" expand="block" fill="clear" shape="round">
+    Logout
+  </ion-button>
   <ion-fab vertical="bottom" horizontal="center" slot="fixed">
     <ion-fab-button color="success" routerLink="nueva-nota">
       <ion-icon id="btnmas" name="add-circle-outline"></ion-icon>

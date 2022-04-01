@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { AlmacenService } from './service/almacen.service';
 import { FirestoreService } from './service/firestore.service';
+import { AuthService } from './service/auth.service';
 
 
 @Component({
@@ -19,9 +20,17 @@ export class HomePage implements OnInit {
     return this.servicio.ver;
   }
   
-  constructor(public alertController: AlertController, private servicio: AlmacenService, private fireS: FirestoreService) {}
+  constructor(public alertController: AlertController, private servicio: AlmacenService, private fireS: FirestoreService, private authS: AuthService, private router: Router) {}
   ngOnInit(): void {
     this.fireS.getNotas().subscribe((res:any) => console.log(res))
+    console.log(this.authS.getUserLogged());
+    
+    // this.authS.getUserLogged().getIdToken().then((res:any) => localStorage.setItem('token', res))
+  }
+
+   logout() {
+    this.authS.logout();
+    this.router.navigateByUrl('/auth/login', { replaceUrl: true });
   }
 
   async cambiarTema() {
