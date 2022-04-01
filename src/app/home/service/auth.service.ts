@@ -29,7 +29,7 @@ export class AuthService {
   async login({ email, password }) {
     try {
       const user = await signInWithEmailAndPassword(this.auth, email, password);
-      console.log(user);
+      this.getUid();
       const token = await this.auth.currentUser.getIdToken();
       if (token) {
         localStorage.setItem('token', token)
@@ -40,12 +40,16 @@ export class AuthService {
     }
   }
  
-   getUserLogged(){
-  const udi =  this.auth.currentUser;
-  return udi.uid;
+    getUid(){
+    const uid =  this.auth.currentUser.uid;
+    const email = this.auth.currentUser.email;
+    localStorage.setItem('uid', uid);
+    localStorage.setItem('nameAuth', email)
+   
   }
   logout() {
     localStorage.removeItem('token');
+    localStorage.removeItem('uid')
     return signOut(this.auth);
   }
 }

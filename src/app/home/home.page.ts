@@ -23,9 +23,8 @@ export class HomePage implements OnInit {
   constructor(public alertController: AlertController, private servicio: AlmacenService, private fireS: FirestoreService, private authS: AuthService, private router: Router) {}
   ngOnInit(): void {
     this.fireS.getNotas().subscribe((res:any) => console.log(res))
-    console.log(this.authS.getUserLogged());
+    console.log(localStorage.getItem('uid'), localStorage.getItem('nameAuth'));
     
-    // this.authS.getUserLogged().getIdToken().then((res:any) => localStorage.setItem('token', res))
   }
 
    logout() {
